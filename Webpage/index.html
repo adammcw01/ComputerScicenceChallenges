@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My Experience With Network Booting</title>
+    <link href="main.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <img src="raspi-img.jpg" alt="A Raspberry Pi" style="display: block; width: 60%; margin-left: auto; margin-right: auto;">
+    <h1>
+    Network Booting a Raspberry Pi
+</h1>
+<h2>
+    Why would anyone want to or need to network boot?
+</h2>
+<p>
+    When I say network booting, I mean running a client computer from another
+    server computer, where all of the files are stored on the server and there
+    is no hard drive on the client. This is useful because it means you can
+    manage the computer remotely, you could install new things, restore it,
+    update new software all from the server, this is especially helpful when
+    you have multiple clients all connected to one server because they can all
+    be modified all at once, or perhaps you want multiple devices to all have
+    exactly the same data on them.
+</p>
+<h2>
+    That’s cool and all but what use is it in the real world
+</h2>
+<p>
+    In this project I’ve used two raspberry Pi’s which are very small computers
+    which can basically fit anywhere and can be modified to create any number
+    of things, a popular example of this is kiosks which can be managed all
+    remotely from a central server and a huge benefit of this is any sensitive
+    data is safe because these are entirely volatile computers. Another simple
+    real-world use is when you need a computer in a space you simply can’t get
+    to all that easily, instead you could just place a Pi in there once and
+    from the server computer perform any tasks you need to.
+</p>
+<h2>
+    That sounds really interesting, but do you not need to know a lot of Linux
+    and how to manage networks
+</h2>
+<p>
+    Usually yes, you would, however I have developed a system that will
+    automatically setup the server that hosts everything for you, so all you
+    have to do is download and run some files.
+</p>
+<h2>
+    How do I set all this up then?
+</h2>
+<p>
+    All the files for this project can be found in a github repository;
+</p>
+<p>
+    <a href="https://github.com/adammcw01/ComputerScicenceChallenges">
+        https://github.com/adammcw01/ComputerScicenceChallenges
+    </a>
+</p>
+<p>
+    To get this up and running you will require 2 computers, a client and a
+    server, this project specifically references the use of raspberry Pi’s.
+</p>
+<h3>
+    Client Configuration
+</h3>
+<p>
+    The information surrounding how to setup a raspberry Pi for the client is
+    constantly changing with each new firmware updates, some Pi’s don’t require
+    any setup whereas others require you to change the bootloader, for relevant
+    and up-to-date information regarding your model of Pi please visit the
+    raspberry Pi website;
+</p>
+<p>
+    <a
+        href="https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md"
+    >
+        www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md
+    </a>
+</p>
+<p>
+    <a
+        href="https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md"
+    >
+        https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md
+    </a>
+</p>
+<h3>
+    Server Configuration
+</h3>
+<p>
+    This is the part of the network booting process that I have made a
+    contribution to, this makes it easier and simpler than ever before. Simply
+    download the three python files from the GitHub repository
+</p>
+<p>
+    1. SetupDirectory.py
+</p>
+<p>
+    2. ConfigureServer.py
+</p>
+<p>
+    3. tcpdump-dnsmasq.py
+</p>
+<p>
+    Now on the Pi which you intend to make the server, download and install
+    Raspbian
+    <a href="https://www.raspberrypi.org/downloads/raspbian/">
+        https://www.raspberrypi.org/downloads/raspbian/
+    </a>
+</p>
+<p>
+    Now make sure that the Pi is wired into an existing network and has a
+    connection to the internet, on the pi move the three files you downloaded
+    earlier on to the desktop and run them as a super user.
+</p>
+<p>
+    If you are unsure how to do this open the terminal, type “cd Desktop”, then
+    type “sudo python” and then the file such as SetupDirectory.py
+</p>
+<p>
+    It is very important that you run the files in the order that they are
+    listed above, if there are any problems or errors they will appear in the
+    terminal window. Don’t be alarmed if the Pi turns off, some steps of the
+    program require a reboot, this is totally normal.
+</p>
+<p>
+    Now you’re done, wire in the client Pi into the network and wait for it to
+    boot, don’t worry if it doesn’t boot first time, it can take multiple
+    attempts to boot successfully depending on the network configurations.
+</p>
+<h2>
+    How does the code work?
+</h2>
+<p>
+    The python scripts work by communicating with the shell to run commands on
+    behalf of the user, this allows for the user to run 1 file instead of
+    having to manually enter dozens of complicated commands individually which
+    in turn opens up endless possibilities for problems when enter those
+    commands incorrectly.
+</p>
+<p>
+    The second thing that the code does it write and overwrite files in the
+    system to change the settings and configurations, this is possible because
+    in Linux everything is treated like a file so the system settings can be
+    changed in this way by editing text files.
+</p>
+<h2>
+    Overall
+</h2>
+<p>
+    The point of this tutorial was taking a very complex task which is hard to
+    perfect and get working properly every time and create a way that
+    simplifies its creation and assists anyone who wants to continue this on
+    and create something so that they aren’t struggling on these earlier stages
+    like I was before. If you manage to recreate this and get it working I
+    encourage you to take it to the next step and create a network booted
+    device like the kiosks mentioned above, I would recommend looking at how to
+    create python scripts that execute on bootup, that end would be far more
+    coding and traditional computer science than the stages laid out in this
+    blog post, if you have an interest in networking or want to learn how boot
+    processes works or you have a raspberry pi laying around.
+</p>
+<h2>
+    Future Improvements
+</h2>
+<p>
+    The next stages for this project, if anyone wished to extend it on further
+    would be;
+</p>
+<ul>
+    <li>
+        Research a way of automatically executing programs upon booting up the
+        client
+    </li>
+    <li>
+        Create a large array with multiple clients all being run off of a
+        single server
+    </li>
+    <li>
+        Create a system where the client automatically sends information back
+        to the server about its current status so that it could potentially be
+        monitored remotely
+    </li>
+    <li>
+        Improve the automated setup for the server by including diagnostics for
+        it so that the user can see the current status of the server
+    </li>
+</ul>
+
+  </body>
+</html>
